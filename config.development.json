@@ -1,3 +1,19 @@
 {
-    "enableDeveloperExperiments": true
+    "enableDeveloperExperiments": true,
+
+    "server": {
+        "port": 2368,
+        "host": "0.0.0.0"
+    },
+
+    "database": {
+        "client": "mysql",
+        "connection": {
+            "host": "118.118.118.11",
+            "user": "root",
+            "password": "root",
+            "database": "ghost"
+        }
+    }
+
 }

@@ -183,6 +183,40 @@ module.exports = function (grunt) {
                         "
                     `;
                 }
+            },
+            dev_mylixos: {
+                command: function () {
+                    const upstream = grunt.option('upstream') || process.env.GHOST_UPSTREAM || 'upstream';
+                    grunt.log.writeln('Pulling down the latest dev_mylixos from ' + upstream);
+                    return `
+                        git submodule sync && \
+                        git submodule update
+
+                        if ! git diff --exit-code --quiet --ignore-submodules=untracked; then
+                            echo "Working directory is not clean, do you have uncommitted changes? Please commit, stash or discard changes to continue."
+                            exit 1
+                        fi
+
+                        git checkout dev_mylixos
+
+                        if git config remote.${upstream}.url > /dev/null; then
+                            git pull ${upstream} dev_mylixos
+                        else
+                            git pull origin dev_mylixos
+                        fi
+
+                        yarn && \
+                        git submodule foreach "
+                            git checkout dev_mylixos
+
+                            if git config remote.${upstream}.url > /dev/null; then
+                                git pull ${upstream} dev_mylixos
+                            else
+                                git pull origin dev_mylixos
+                            fi
+                        "
+                    `;
+                }
             }
         },
 

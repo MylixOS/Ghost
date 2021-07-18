@@ -25,6 +25,7 @@
     "dev:debug": "DEBUG=ghost:* grunt dev",
     "setup": "yarn install && knex-migrator init && grunt symlink && grunt init || (exit 0)",
     "main": "grunt shell:main && grunt subgrunt:init",
+    "dev_mylixos": "grunt shell:dev_mylixos && grunt subgrunt:init",
     "build": "grunt build",
     "test": "mocha --require=./test/utils/overrides.js --exit --trace-warnings --recursive --extension=test.js --timeout=60000",
     "test:all": "yarn test:unit && yarn test:acceptance && yarn lint",
